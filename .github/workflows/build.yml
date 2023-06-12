@@ -9,9 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      #cache clean and install dependencies
-      - name: Cache clean
-        run: npm cache clean --force
+      #install dependencies
       - run: npm install
       - uses: actions/checkout@v3
        #build
