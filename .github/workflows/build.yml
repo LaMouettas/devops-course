@@ -13,33 +13,25 @@ jobs:
       - name: Cache clean
         run: npm cache clean --force
       - run: npm install
-      #install wait-on
-      - run: npm install wait-on
-      #tests cypress
       - uses: actions/checkout@v3
-      # run server
-      - name: Serve
-        run: npm run serve --if-present
-      # wait for server to start
-      - name: Wait for server
-        run: npx wait-on http://localhost:3000
-      - uses: cypress-io/github-action@v5
-      # after the test run completes store videos and any screenshots
+       #build
+      - name: Build
+        run: npm run build --if-present
+      #run a headless cypress test
+      - name: Cypress run headless
+        run: npm run e2e-headless
+      #store screenshots and videos
       - uses: actions/upload-artifact@v3
         # add the line below to store screenshots only on failures
         # if: failure()
+        if: always()
         with:
           name: cypress-screenshots
           path: cypress/screenshots
           if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
       - uses: actions/upload-artifact@v3
+        if: always()
         with:
           name: cypress-videos
           path: cypress/videos
           if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
-      # stop serve
-      - name: Stop serve
-        run: npm run stop --if-present
-      #build
-      - name: Build
-        run: npm run build --if-present
