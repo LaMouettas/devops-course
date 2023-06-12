@@ -8,28 +8,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      #install dependencies
-      - run: npm install
-      - uses: actions/checkout@v3
-       #build
-      - name: Build
-        run: npm run build
-      #run a headless cypress test
-      - name: Cypress run headless
-        run: npm run e2e-headless
-      #store screenshots and videos
+      - uses : actions/checkout@v3
+      - name: install dependencies
+        run: 
+          npm install
+          npm run build
+      - run: npm run e2e-headless
       - uses: actions/upload-artifact@v3
-        # add the line below to store screenshots only on failures
-        # if: failure()
-        if: always()
+        if: ${{ always() }}
         with:
-          name: cypress-screenshots
-          path: cypress/screenshots
-          if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
-      - uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: cypress-videos
+          name: e2e-tests
           path: cypress/videos
-          if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
