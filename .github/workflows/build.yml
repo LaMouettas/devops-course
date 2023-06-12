@@ -13,18 +13,12 @@ jobs:
       - name: Cache clean
         run: npm cache clean --force
       - run: npm install
-      #dev server
-      - name: Start server in dev mode
-        run: npm run dev
       #tests cypress
       - uses: actions/checkout@v3
       - uses: cypress-io/github-action@v5
         with:
           browser: chrome
           headed: true
-      #stop server
-      - name: Stop server
-        run: npm stop
       #build
       - name: Build
         run: npm run build --if-present
