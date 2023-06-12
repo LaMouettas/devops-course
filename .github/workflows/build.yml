@@ -16,7 +16,6 @@ jobs:
       #tests cypress
       name: E2E on Edge
       steps:
-      - uses: actions/checkout@v3
       - uses: cypress-io/github-action@v5
         with:
           browser: chrome
