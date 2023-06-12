@@ -9,13 +9,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      #cache clean
+      #cache clean and install dependencies
       - name: Cache clean
         run: npm cache clean --force
       - run: npm install
+      #tests cypress
+      name: E2E on Edge
+      steps:
+      - uses: actions/checkout@v3
+      - uses: cypress-io/github-action@v5
+        with:
+          browser: chrome
       #build
       - name: Build
         run: npm run build --if-present
-      #start
-      - name: Start
-        run: npm start --if-present
