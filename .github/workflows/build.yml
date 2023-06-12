@@ -5,13 +5,13 @@ run-name: ${{ github.actor }} is building
 on: [push]
 
 jobs:
-  check-bats-version:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '14'
+      #cache clean
+      - name: Cache clean
+        run: npm cache clean --force
       - run: npm install
       #build
       - name: Build
