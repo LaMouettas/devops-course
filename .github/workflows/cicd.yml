@@ -2,7 +2,11 @@ name: Cypress e2e tests with artifact
 
 run-name: ${{ github.actor }} is testing app with cypress
 
-on: [push]
+on:
+  workflow_run:
+    workflows: ["build app"]
+    types:
+      - completed
 
 jobs:
   build:
