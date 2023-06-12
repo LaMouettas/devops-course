@@ -13,7 +13,7 @@ jobs:
         run: 
           npm install
           npm run build
-      - run: npm run e2e-headless
+      - run: npm run e2e:headless
       - uses: actions/upload-artifact@v3
         if: ${{ always() }}
         with:
