@@ -8,7 +8,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses : actions/checkout@v3
+      - uses: actions/checkout@v3
       - name: Cache node modules
         id: cache-npm
         uses: actions/cache@v3
@@ -23,14 +23,13 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
       - name: install dependencies
-        run: 
-          npm install
+        run: npm install
           npm run build
   tests:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses : actions/checkout@v3
+      - uses: actions/checkout@v3
       - name: Cache node modules
         id: cache-npm
         uses: actions/cache@v3
@@ -45,11 +44,25 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
       - name: install dependencies
-        run: 
-          npm install
+        run: npm install
       - run: npm run e2e:headless
       - uses: actions/upload-artifact@v3
         if: ${{ always() }}
         with:
           name: e2e-tests
           path: cypress/videos
+  deploy:
+    needs: tests
+    runs-on: ubuntu-latest
+    name: connect to server
+    steps:
+      - uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_KEY }}
+      - run: ssh -o StrictHostKeyChecking=no
+          ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} 'cd ${{ secrets.SSH_PATH }} "\
+          cd devops-course && \
+          git pull && \
+          npm-install && \
+          npm run build && \
+          pm2 restart all"
