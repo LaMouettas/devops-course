@@ -14,11 +14,12 @@ jobs:
         run: npm cache clean --force
       - run: npm install
       #tests cypress
-      name: E2E on Edge
-      steps:
-      - uses: cypress-io/github-action@v5
-        with:
-          browser: chrome
+      - name: E2E on Edge
+        steps:
+          - uses: cypress-io/github-action@v5
+            with:
+              browser: chrome
+              headed: true
       #build
       - name: Build
         run: npm run build --if-present
