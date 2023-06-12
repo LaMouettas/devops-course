@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v3
        #build
       - name: Build
-        run: npm run build --if-present
+        run: npm run build
       #run a headless cypress test
       - name: Cypress run headless
         run: npm run e2e-headless
