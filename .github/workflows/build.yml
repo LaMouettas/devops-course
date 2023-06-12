@@ -27,6 +27,7 @@ jobs:
           npm install
           npm run build
   tests:
+    if: ${{ !failure() }}
     runs-on: ubuntu-latest
     steps:
       - uses : actions/checkout@v3
