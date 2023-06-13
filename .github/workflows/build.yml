@@ -97,7 +97,8 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_KEY }}
       - run:
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "\
-          sudo apt-get update && sudo apt-get upgrade -y && \
+          curl -sSL https://get.docker.com/ | sudo sh
+          apt-get update && sudo apt-get upgrade -y && \
           docker login ghcr.io -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.GITH_TOKEN }} && \
           docker pull ghcr.io/${{ secrets.DOCKERHUB_USERNAME }}/nextcicd:latest && \
           docker stop nextcicd && \
