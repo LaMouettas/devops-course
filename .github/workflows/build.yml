@@ -96,7 +96,6 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_KEY }}
       - run:
-          sudo ~/.bash_profile && \
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
         
           'bash -i -c "docker pull ghcr.io/${{ secrets.DOCKERHUB_USERNAME }}/nextcicd:latest && \
