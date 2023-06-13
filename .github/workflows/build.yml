@@ -96,6 +96,5 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_KEY }}
       - run:
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "\
-          docker compose up -d --pull always"
-           # sudo docker login ${{ secrets.GIT_URL }} -u ${{ github.actor }} -p${{ secrets.GITHUB_TOKEN }} && sudo docker-compose pull && sudo docker-compose up -d
+          'bash -i -c "ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} && docker compose up -d --pull always"'
+          #  sudo docker login ${{ secrets.GIT_URL }} -u ${{ github.actor }} -p${{ secrets.GITHUB_TOKEN }} && sudo docker-compose pull && sudo docker-compose up -d
