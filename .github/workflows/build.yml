@@ -89,7 +89,7 @@ jobs:
   #         push: true
   #         tags: ghcr.io/${{ secrets.DOCKERHUB_USERNAME }}/nextcicd:latest
   deploy: 
-    needs: push-to-registry
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: webfactory/ssh-agent@v0.8.0
