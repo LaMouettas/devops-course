@@ -95,8 +95,10 @@ jobs:
       - uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.SSH_KEY }}
-      - run: ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_PORT}} ${{secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "\
-          docker pull ghcr.io/${{ secrets.DOCKERHUB_USERNAME }}/nextcicd:latest && \
-          docker stop nextcicd && \
-          docker rm nextcicd && \
-          docker run -d --name nextcicd -p 3000:3000 ghcr.io/${{ secrets.DOCKERHUB_USERNAME }}/nextcicd:latest"
+      - run: ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "\
+
+          sudo docker pull ghcr.io/${{ secrets.DOCKERHUB_USERNAME }}/nextcicd:latest && \
+          sudo docker stop nextcicd && \
+          sudo docker rm nextcicd && \
+          sudo docker run -d --name nextcicd -p 3000:3000 ghcr.io/${{ secrets.DOCKERHUB_USERNAME }}/nextcicd:latest"
+          
