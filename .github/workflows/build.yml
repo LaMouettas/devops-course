@@ -61,7 +61,8 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_KEY }}
       - run: ssh -o StrictHostKeyChecking=no
           ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "\
-          git clone https://github.com/LaMouettas/devops-course.git
+          sudo apt-get install git && \
+          git clone https://github.com/LaMouettas/devops-course.git && \
           cd devops-course && \
           git pull && \
           npm-install && \
