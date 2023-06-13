@@ -96,11 +96,6 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_KEY }}
       - run:
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
-        
-          'bash -i -c "docker pull ghcr.io/${{ secrets.DOCKERHUB_USERNAME }}/nextcicd:latest && \
-          docker stop nextcicd && \
-          docker rm nextcicd && \
-          docker run -d --name nextcicd -p 3000:3000 ghcr.io/${{ secrets.DOCKERHUB_USERNAME }}/nextcicd:latest"'
-
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} && \
+          'bash -i -c "docker compose up -d --pull always"'
            # sudo docker login ${{ secrets.GIT_URL }} -u ${{ github.actor }} -p${{ secrets.GITHUB_TOKEN }} && sudo docker-compose pull && sudo docker-compose up -d
