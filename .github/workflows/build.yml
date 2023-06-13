@@ -96,7 +96,7 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_KEY }}
       - run:
-          ~/.bash_profile
+          sudo ~/.bash_profile && \
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "\
          
           docker login ghcr.io -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.GITH_TOKEN }} && \
